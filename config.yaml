@@ -1,0 +1,3 @@
+script_config:
+ archivator: tar 
+ auto_clean_backup: false 
