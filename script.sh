@@ -19,14 +19,6 @@
 exec > >(tee >(systemd-cat -t ${BASH_SOURCE##*/} -p 5))
 exec 2> >(tee >(systemd-cat -t ${BASH_SOURCE##*/} -p 3))
 
-#проверить наличие yq
-check_yq() {
-if which yq &>/dev/null; then
-	echo "Continuing with yaml config"
-else echo "No yq installed, you can't use config. Aborting" >&2; sleep 1; exit 1
-fi
-}
-
 while getopts "b:c:" opt ; do
 	case "$opt" in
 		c) CONFIG_PATH="${OPTARG}"
@@ -69,9 +61,7 @@ AUTO_DELETE="$(yq < "${CONFIG_PATH}" | jq '.script_config.auto_clean_backup')"
 		*) echo "${ARCHIVATOR} is not supported" >&2; sleep 1; exit 1
 			;;
 
-	esac
-
-			
+	esac	
 }
 
 #запускаем функции проверки конфига и парсинг
@@ -87,7 +77,6 @@ case $? in
 	1) echo "Failed to create backup dir" >&2; sleep 1;
 		;;
 esac
-
 }
 
 #проверка существования директории и создание директории
