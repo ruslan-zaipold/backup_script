@@ -41,7 +41,7 @@ check_config() {
 	esac
 
 	local check=$(yq < "${CONFIG_PATH}" &>/dev/null) 
-	echo $check
+	
 	case $check in
 		0) echo "Config is fine, moving on"
 			;;
