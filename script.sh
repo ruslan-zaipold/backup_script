@@ -38,7 +38,7 @@ check_config() {
 		;;
 		1) echo "Checking config"
 		;;
-esac
+	esac
 
 	local check=$(yq < "${CONFIG_PATH}" &>/dev/null) 
 	echo $check
